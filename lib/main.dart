@@ -26,21 +26,22 @@ class Navigation extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(
-        title: Text("Dictionary"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search), 
-            onPressed: () {
-              showSearch(context: context, delegate: WordSearch());
-            }
-          )
-        ],
-      ),
+      
       body: new PageView(
         children: [
-          new Container(
-              child: new Column(
+          new Scaffold(
+              appBar: AppBar(
+                title: Text("Dictionary"),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.search), 
+                    onPressed: () {
+                      showSearch(context: context, delegate: DictionarySearch());
+                    }
+                  )
+                ],
+              ),
+              body: new Column(
                 children: <Widget>[
                   new Expanded(
                     child: new Center(
@@ -51,12 +52,13 @@ class Navigation extends State<NavigationPage> {
                           new Container(
                             margin: const EdgeInsets.only(right: 20.0),
                             child: new FloatingActionButton(
+                              heroTag: "Vocabulary",
                               onPressed: () {},
                               child: new Icon(Icons.add),
                             )
                           ),
                           new Text(
-                            "Create Dictionary",
+                            "建立個人字典",
                             style: new TextStyle(
                               fontFamily: "Roboto",
                               fontSize: 30.0,
@@ -77,7 +79,7 @@ class Navigation extends State<NavigationPage> {
                       ),
                     ),
                   ),
-                  Expanded(
+                  new Expanded(
                     child: new Center(
                       child: new Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -86,12 +88,13 @@ class Navigation extends State<NavigationPage> {
                           new Container(
                             margin: const EdgeInsets.only(right: 20.0),
                             child: new FloatingActionButton(
+                              heroTag: "Important Vocabulary",
                               onPressed: () {},
                               child: new Icon(Icons.add),
                             )
                           ),
                           new Text(
-                            "Create Dictionary",
+                            "建立推薦字典",
                             style: new TextStyle(
                               fontFamily: "Roboto",
                               fontSize: 30.0,
@@ -105,8 +108,19 @@ class Navigation extends State<NavigationPage> {
                 ],
               )
           ),
-          new Container(
-              child: new Column(
+          new Scaffold(
+              appBar: AppBar(
+                title: Text("Word"),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.search), 
+                    onPressed: () {
+                      showSearch(context: context, delegate: WordSearch());
+                    }
+                  )
+                ],
+              ),
+              body: new Column(
                 children: <Widget>[
                   new Expanded(
                     child: new Center(
@@ -117,6 +131,7 @@ class Navigation extends State<NavigationPage> {
                           new Container(
                             margin: const EdgeInsets.only(right: 20.0),
                             child: new FloatingActionButton(
+                              heroTag: "Word",
                               onPressed: () {},
                               child: new Icon(Icons.add),
                             )
@@ -143,7 +158,7 @@ class Navigation extends State<NavigationPage> {
                       ),
                     ),
                   ),
-                  Expanded(
+                  new Expanded(
                     child: new Center(
                       child: new Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -152,6 +167,7 @@ class Navigation extends State<NavigationPage> {
                           new Container(
                             margin: const EdgeInsets.only(right: 20.0),
                             child: new FloatingActionButton(
+                              heroTag: "Meaning",
                               onPressed: () {},
                               child: new Icon(Icons.add),
                             )
@@ -212,6 +228,10 @@ class Navigation extends State<NavigationPage> {
 }
 
 class WordSearch extends SearchDelegate<String> {
+  final recentCities = [
+    "new Delhi",
+    "Fairdabad"
+  ];
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -244,9 +264,62 @@ class WordSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
+    return ListView.builder(
+      itemBuilder: (context,index) => ListTile(
+        leading: Icon(Icons.book),
+        title: Text(recentCities[index]),
+      ),
+      itemCount: recentCities.length,
+    );
   }
     
 }
 
+class DictionarySearch extends SearchDelegate<String> {
+  final recentCities = [
+    "new Delhi",
+    "Fairdabad"
+  ];
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear), 
+        onPressed: () {
+          query = "";
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
+      ),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return ListView.builder(
+      itemBuilder: (context,index) => ListTile(
+        leading: Icon(Icons.book),
+        title: Text(recentCities[index]),
+      ),
+      itemCount: recentCities.length,
+    );
+  }
+    
+}
 
