@@ -6,6 +6,8 @@ import './page_two.dart';
 
 import './page_three.dart';
 
+import './dictionaries.dart';
+
 void main() => runApp(new MainPage());
 
 class MainPage extends StatelessWidget {
@@ -26,8 +28,38 @@ class NavigationPage extends StatefulWidget {
 class Navigation extends State<NavigationPage> {
   int currentIndex = 0;
 
+  final Key keyOne = PageStorageKey("pageOne");
+  final Key keyTwo = PageStorageKey("pageTwo");
+  final Key keyThree = PageStorageKey("pageThree");
+
   PageController pageController;
   int page = 0;
+
+  PageOne one;
+  PageTwo two;
+  PageThree three;
+  List<Widget>pages;
+  Widget currentPage;
+
+  List<Dictionary> dictionaries;
+  final PageStorageBucket bucket = PageStorageBucket();
+
+  @override
+  void initState() {
+    dictionaries = [];
+    one = PageOne(
+      key: keyOne,
+      dictionaries: dictionaries,
+    );
+    two = PageTwo();
+    three = PageThree();
+
+    pages = [one, two, three];
+
+    pageController = new PageController();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +67,18 @@ class Navigation extends State<NavigationPage> {
       
       body: new PageView(
         children: [
-          // My Dictionary
-          PageOne(),
-          // Page Two
-          PageTwo(),
-          // Page Three
-          // Search
-          PageThree()
+          new PageStorage(
+            child: one,
+            bucket: bucket,
+          ),
+          new PageStorage(
+            child: two,
+            bucket: bucket,
+          ),
+          new PageStorage(
+            child: three,
+            bucket: bucket,
+          ),
         ],
         physics: new AlwaysScrollableScrollPhysics(),
         controller: pageController,
@@ -69,9 +106,9 @@ class Navigation extends State<NavigationPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    pageController = new PageController();
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 
   void onTap(int index) {
