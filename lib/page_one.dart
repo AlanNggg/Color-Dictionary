@@ -4,7 +4,16 @@ import './dictionary_manager.dart';
 
 import './search.dart';
 
+import './dictionaries.dart';
+
 class PageOne extends StatefulWidget {
+  final List<Dictionary> dictionaries;
+
+  PageOne({
+    Key key, 
+    this.dictionaries
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _PageOneState();
 }
@@ -13,6 +22,7 @@ class _PageOneState extends State<PageOne> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      key: new PageStorageKey(_PageOneState),
       appBar: AppBar(
         title: Text("你的單字本"),
         actions: <Widget>[
@@ -28,7 +38,12 @@ class _PageOneState extends State<PageOne> {
         children: <Widget>[
           // Add Dictionary by using Dictionary Manager
           new Expanded(
-            child: DictionaryManager("My Vocabulary", "建立單字本"),
+            child: new DictionaryManager(
+              this.widget.key,
+              this.widget.dictionaries,
+              "My Vocabulary", 
+              "建立單字本"
+            ),
           ),
           new SizedBox(
             height: 10.0,
@@ -41,7 +56,12 @@ class _PageOneState extends State<PageOne> {
             ),
           ),
           new Expanded(
-            child: DictionaryManager("Recommand Vocabulary", "取得單字本"),
+            child: new DictionaryManager(
+              this.widget.key,
+              this.widget.dictionaries,
+              "Recommand Vocabulary", 
+              "取得單字本"
+            ),
           )
         ],
       )
