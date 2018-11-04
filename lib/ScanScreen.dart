@@ -71,7 +71,7 @@ void _showDialog(BuildContext context){
     context:context,
     builder:(BuildContext context){
       return new AlertDialog(
-        title: new Text('Permission'),
+        title: new Text('Caera permission is was denied'),
         
         actions: <Widget>[
           
