@@ -53,7 +53,7 @@ class _DictionaryManagerState extends State<DictionaryManager> {
                 heroTag: type,
                 onPressed: () {
                   setState(() {
-                    widget.dictionaries.add(Dictionary(id, "New Dictionary"));
+                    widget.dictionaries.add(Dictionary(id, "New Dictionary", "assets/like.png"));
                   });
                 },
                 child: new Icon(Icons.add),
