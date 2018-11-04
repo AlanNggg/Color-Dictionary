@@ -24,13 +24,19 @@ class _PageTwoState extends State<PageTwo> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                
-                child: new Padding(
-                  padding: EdgeInsets.only(top: 20.0, bottom: 10.0, left: 20.0, right: 20.0),
-                  child: new Column(
-                    children: <Widget>[
-                      new Text("建立單字本", style: TextStyle(fontSize: 30.0),)
-                    ],
+                child: new InkWell(
+                  onTap:(){
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text('Tap'),
+                    ));
+                  },
+                  child: new Padding(
+                    padding: EdgeInsets.only(top: 20.0, bottom: 10.0, left: 20.0, right: 20.0),
+                    child: new Column(
+                      children: <Widget>[
+                        new Text("建立單字本", style: TextStyle(fontSize: 30.0),)
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -45,13 +51,20 @@ class _PageTwoState extends State<PageTwo> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                
-                child: new Padding(
-                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
-                  child: new Column(
-                    children: <Widget>[
-                      new Text("分享單字本", style: TextStyle(fontSize: 30.0),)
-                    ],
+                  
+                child: new InkWell(
+                  onTap:(){
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text('Tap'),
+                    ));
+                  },
+                  child: new Padding(
+                    padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
+                    child: new Column(
+                      children: <Widget>[
+                        new Text("分享單字本", style: TextStyle(fontSize: 30.0),)
+                      ],
+                    ),
                   ),
                 ),
               ),
