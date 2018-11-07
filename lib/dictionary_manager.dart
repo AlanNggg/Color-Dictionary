@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 import './dictionaries.dart';
 
+import './model/dictionary.dart';
+
+import './form.dart';
+
 class DictionaryManager extends StatefulWidget {
   final List<Dictionary> dictionaries;
 
@@ -21,6 +25,7 @@ class DictionaryManager extends StatefulWidget {
 
 class _DictionaryManagerState extends State<DictionaryManager> {
 
+  Color _color;
   String type;
   String title;
   int id;
@@ -52,9 +57,35 @@ class _DictionaryManagerState extends State<DictionaryManager> {
               child: new FloatingActionButton(
                 heroTag: type,
                 onPressed: () {
-                  setState(() {
-                    widget.dictionaries.add(Dictionary(id, "New Dictionary", "assets/like.png"));
-                  });
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        final ThemeData themeData = Theme.of(context);
+                        Color color;
+                        if (_color == null)
+                          color = themeData.textTheme.display1.color;
+                        else
+                          color = _color;
+                        return new SingleChildScrollView(
+                          child: new AlertDialog(
+                            title: new Text('Create Dictionary'),
+                            content: new DictionarySettingsDrawer(
+                                activeColor: color,
+                                onChangeColor: _updateColor),
+                                
+                            actions: <Widget>[
+                              new FlatButton(
+                                child: new Text('OK'),
+                                onPressed: () {
+                                  print(_color);
+                                  Navigator.of(context).pop(true);
+                                },
+                              )
+                            ],
+                          )
+                        );
+                      },
+                    );
                 },
                 child: new Icon(Icons.add),
               )
@@ -82,5 +113,11 @@ class _DictionaryManagerState extends State<DictionaryManager> {
         ],
       );
     }
+  }
+  
+  void _updateColor(Color color) {
+    setState(() {
+      _color = color;
+    });
   }
 }

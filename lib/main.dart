@@ -6,7 +6,9 @@ import './page_two.dart';
 
 import './page_three.dart';
 
-import './dictionaries.dart';
+import './model/dictionary.dart';
+
+import './ScanScreen.dart';
 
 void main() => runApp(new MainPage());
 

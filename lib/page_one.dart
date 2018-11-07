@@ -4,7 +4,9 @@ import './dictionary_manager.dart';
 
 import './search.dart';
 
-import './dictionaries.dart';
+import './model/dictionary.dart';
+
+import 'package:sqflite/sqflite.dart';
 
 class PageOne extends StatefulWidget {
   final List<Dictionary> dictionaries;
@@ -37,6 +39,14 @@ class _PageOneState extends State<PageOne> {
       body: new Column(
         children: <Widget>[
           // Add Dictionary by using Dictionary Manager
+          new Row(
+            children: <Widget>[
+              new Padding(
+                padding: EdgeInsets.all(5.0),
+                child: new Text("個人單字本", style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+              )
+            ],
+          ),
           new Expanded(
             child: new DictionaryManager(
               this.widget.key,
@@ -54,6 +64,14 @@ class _PageOneState extends State<PageOne> {
                 color: Colors.grey,
               ),
             ),
+          ),
+          new Row(
+            children: <Widget>[
+              new Padding(
+                padding: EdgeInsets.all(5.0),
+                child: new Text("推薦單字本", style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+              )
+            ],
           ),
           new Expanded(
             child: new DictionaryManager(

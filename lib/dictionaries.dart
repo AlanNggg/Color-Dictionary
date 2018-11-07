@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './model/dictionary.dart';
+
 class Dictionaries extends StatefulWidget {
 
   final List<Dictionary> dictionaries;
@@ -73,10 +75,4 @@ class _DictionariesState extends State<Dictionaries> {
   }
 }
 
-class Dictionary {
-  final int id;
-  final String title;
-  final String image;
 
-  Dictionary(this.id, this.title, this.image);
-}
